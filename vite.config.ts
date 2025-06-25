@@ -4,12 +4,16 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [react(), dts()],
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
   build: {
+    emptyOutDir: false,
+    outDir: "dist",
     lib: {
       entry: "src/index.ts",
       name: "react-ui-kit-vite-tailwind",
-      fileName: "index",
-      formats: ["es", "cjs"],
+      fileName: "react-ui-kit-vite-tailwind",
     },
     rollupOptions: {
       external: ["react", "react-dom"],
