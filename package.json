@@ -1,27 +1,52 @@
 {
   "name": "react-ui-kit-vite-tailwind",
-  "private": true,
-  "version": "0.0.0",
+  "description": "Webcomponent wc-ui following open-wc recommendations",
+  "license": "MIT",
+  "author": "naviilla",
+  "version": "0.0.0001",
   "type": "module",
+  "main": "dist/react-ui-kit-vite-tailwind.cjs",
+  "module": "./dist/react-ui-kit-vite-tailwind.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+        "release": "npm version $(semver $npm_package_version -i major) && npm publish --tag latest",
+    "release:minor": "npm version $(semver $npm_package_version -i minor) && npm publish --tag latest",
+    "release:patch": "npm version $(semver $npm_package_version -i patch) && npm publish --tag latest",
+    "release:beta": "npm version $(semver $npm_package_version -i prerelease --preid $(npm whoami) ) && npm publish --tag beta",
+    "clean": "rimraf dist",
+    "copy-files": "copyfiles -u 1 src/**/*.html src/**/*.css src/**/*.js dist/public/",
+    "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
+    "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
+    "test": "tsc && wtr --coverage",
+    "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
+    "storybook": "storybook dev -p 6006",
+    "test-storybook": "test-storybook",
+    "storybook:build": "storybook build",
+    "build-storybook": "storybook build",
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tailwind:init": "tailwindcss init -p"
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "vite-plugin-dts": "^4.5.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.10",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
     "vite": "^7.0.0"
